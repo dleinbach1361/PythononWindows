@@ -5,25 +5,25 @@ import sys
 import re
 
 #check username/password file
-user_file = input(r"\n# Enter user file path and name (e.g. C:\username\filename.txt): ")
+user_file = input("\n# Enter user file path and name (e.g. C:\\username\\filename.txt): ")
 
 #verify file
 if os.path.isfile(user_file) == True:
-    print(r"\n* Username\password file is valid :) \n")
+    print("\n* Username\password file is valid :) \n")
 
 else:
-    print(r"\n* File {} does not exist :( Please check and try again.\n".format(user_file))
+    print("\n* File {} does not exist :( Please check and try again.\n".format(user_file))
     sys.exit()
 
 #Check command file
-cmd_file = input(r"\n# Enter command file path and name (C:\user\filepath\filename.txt): ")
+cmd_file = input("\n# Enter command file path and name (C:\\user\\filepath\\filename.txt): ")
 
 #Verify validity
 if os.path.isfile(cmd_file) == True:
     print("\n* Command file valid :)\n")
 
 else:
-    print(r"\n* File {} does not exist :( \n".format(cmd_file))
+    print("\n* File {} does not exist :( \n".format(cmd_file))
     sys.exit
     
 
@@ -83,6 +83,9 @@ def ssh_connection(ip):
             
         else:
             print('\nDone for device {} :)\n'.format(ip))
+            
+            
+        print(str(router_output) + "\n")
 
 
         session.close()
