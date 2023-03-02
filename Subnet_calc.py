@@ -33,3 +33,32 @@ def subnet_calc():
                 print("\nThe subnet mask is INVALID dumbass! Try again\n")
                 continue
             
+        #convert mask to bin
+        mask_octets_binary = []
+
+        for octet in mask_octets:
+            binary_octet = bin(int(octet)).lstrip('0b')
+
+            #append to list mask_octets_binary
+            mask_octets_binary.append(binary_octet.zfill(8))
+
+        #print mask as long binary
+        binary_mask = ''.join(mask_octets_binary)
+
+        no_of_zeros = binary_mask.count('0')
+        no_of_ones = 32 - no_of_zeros
+        no_of_hosts = abs(2 ** no_of_zeros - 2)
+
+
+        #create wildcard mask
+        wildcard_octets = []
+
+        for octet in mask_octets:
+            wild_octet = 255 - int(octet)
+            wildcard_octets.append(str(wild_octet))
+
+        #put it all back together
+        wildcard_mask = '.'.join(wildcard_octets)
+
+        
+
