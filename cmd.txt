@@ -1,0 +1,5 @@
+vlan 22
+vlan 23
+vlan 24
+copy run start
+show vlan

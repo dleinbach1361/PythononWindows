@@ -32,7 +32,7 @@ def subnet_calc():
             else:
                 print("\nThe subnet mask is INVALID dumbass! Try again\n")
                 continue
-
+            
         #convert mask to bin
         mask_octets_binary = []
 
@@ -48,10 +48,6 @@ def subnet_calc():
         no_of_zeros = binary_mask.count('0')
         no_of_ones = 32 - no_of_zeros
         no_of_hosts = abs(2 ** no_of_zeros - 2)
-
-        #print(no_of_zeros)
-        #print(no_of_ones)
-        #print(no_of_hosts)
 
 
         #create wildcard mask
@@ -75,13 +71,79 @@ def subnet_calc():
         binary_ip = ''.join(ip_octets_binary)
 
         network_address_binary = binary_ip[:(no_of_ones)] + '0' * no_of_zeros
-        print(network_address_binary)
+        #print(network_address_binary)
 
         broadcast_address_binary = binary_ip[:(no_of_ones)] + '1' * no_of_zeros
-        print(broadcast_address_binary)
+        #print(broadcast_address_binary)
 
-        
 
+        net_ip_octets = []
+
+        for bit in range(0, 32, 8):
+            net_ip_octet = network_address_binary[bit: bit + 8]
+            net_ip_octets.append(net_ip_octet)
+
+        #print(net_ip_octets)
+
+        net_ip_address = []
+
+        for each_octet in net_ip_octets:
+            net_ip_address.append(str(int(each_octet, 2)))
+
+        network_address = '.'.join(net_ip_address)
+
+        #print(network_address)
+
+        bst_ip_octets = []
+
+        for bit in range(0, 32, 8):
+            bst_ip_octet = broadcast_address_binary[bit: bit + 8]
+            bst_ip_octets.append(bst_ip_octet)
+
+        bst_ip_address = []
+
+        for each_octet in bst_ip_octets:
+            bst_ip_address.append(str(int(each_octet, 2)))
+
+        broadcast_address = '.'.join(bst_ip_address)
+
+        #print(broadcast_address)
+
+        #Print all the results
+        print('\n')
+        print('Network Address is: %s' % network_address)
+        print('Broadcast Address is: %s' % broadcast_address)
+        print('Number of valid hosts per subnet: %s' % no_of_hosts)
+        print('Wildcard Mask: %s' % wildcard_mask)
+        print('Mask bits: %s' % no_of_ones)
+        print('\n')
+
+
+        while True:
+            generate = input('Would you like to generate a random IP from this subnet? (y/n): ')
+
+            if generate == 'y':
+
+                generated_ip = []
+
+                for indexb, oct_bst in enumerate(bst_ip_address):
+                    for indexn, oct_net in enumerate(net_ip_address):
+                        if indexb == indexn:
+                            if oct_bst == oct_net:
+                                generated_ip.append(oct_bst)
+                            else:
+                                generated_ip.append(str(random.randint(int(oct_net), int(oct_bst))))
+                
+                y_iaddr = '.'.join(generated_ip)
+
+                print('Random IP address is: %s' % y_iaddr)
+                print('\n')
+                continue
+
+            else:
+                print('See ya later!\n')
+                break
+            
 
 
     except KeyboardInterrupt:
@@ -90,3 +152,5 @@ def subnet_calc():
 
 
 subnet_calc()
+
+

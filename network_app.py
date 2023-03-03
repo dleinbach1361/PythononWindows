@@ -1,6 +1,6 @@
 import sys
 
-from ip_file_valid import ip_file_valid
+from inventory_file_valid import ip_file_valid
 from inventory_reach import ip_reach
 from ssh_connect import ssh_connection
 from Threads import create_threads
