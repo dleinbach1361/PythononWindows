@@ -32,7 +32,7 @@ def subnet_calc():
             else:
                 print("\nThe subnet mask is INVALID dumbass! Try again\n")
                 continue
-            
+
         #convert mask to bin
         mask_octets_binary = []
 
@@ -49,6 +49,10 @@ def subnet_calc():
         no_of_ones = 32 - no_of_zeros
         no_of_hosts = abs(2 ** no_of_zeros - 2)
 
+        #print(no_of_zeros)
+        #print(no_of_ones)
+        #print(no_of_hosts)
+
 
         #create wildcard mask
         wildcard_octets = []
@@ -60,5 +64,29 @@ def subnet_calc():
         #put it all back together
         wildcard_mask = '.'.join(wildcard_octets)
 
+        #convert the IP to binary
+        ip_octets_binary = []
+
+        for octet in ip_octets:
+            binary_octet = bin(int(octet)).lstrip('0b')
+
+            ip_octets_binary.append(binary_octet.zfill(8))
+
+        binary_ip = ''.join(ip_octets_binary)
+
+        network_address_binary = binary_ip[:(no_of_ones)] + '0' * no_of_zeros
+        print(network_address_binary)
+
+        broadcast_address_binary = binary_ip[:(no_of_ones)] + '1' * no_of_zeros
+        print(broadcast_address_binary)
+
         
 
+
+
+    except KeyboardInterrupt:
+        print("\n\nProgram aborted by user. Exiting...\n")
+        sys.exit()      
+
+
+subnet_calc()
