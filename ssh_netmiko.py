@@ -1,3 +1,4 @@
+from getpass import getpass
 from netmiko import ConnectHandler
 from netmiko import NetMikoAuthenticationException
 import os.path
@@ -7,7 +8,7 @@ import re
 
 #get username and password
 username = input("\n# Enter your username please: ")
-password = input("\n# Enter your password please: ")
+password = getpass()
 
 #Check command file
 cmd_file = input("\n# Enter command file path and name (C:\\user\\filepath\\filename.txt): ")
@@ -66,3 +67,4 @@ def ssh_connection(ip):
     except NetMikoAuthenticationException:
         print('* Invalid username or password :( \n* Please check the username/password')
         print('* Closing program')
+        continue
